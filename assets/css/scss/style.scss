@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=Henny+Penny&display=swap');
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    position: relative;
+}
+
+html{
+    scroll-behavior: smooth;
+}
+
+body::-webkit-scrollbar{
+    width: 0;
+}
+body{
+    scrollbar-width: thin;
+    top: 0px;
+}
+body > .skiptranslate {
+    display: none !important;
+} 
+body {
+    top: 0px !important; 
+}
+
+ul,ol{
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+p{
+    margin: 0;
+}
+
+h1,h2,h3,h4,h5,h6{
+    margin: 0;
+}
+
+a{
+    text-decoration: none;
+    cursor: pointer;
+    &:hover{
+        @extend a;
+    }
+}
+
+:root{
+    --primary:rgb(8, 127, 148);
+    --secondary:rgb(255, 255, 255);
+}
+
+.dark_theme{
+    --primary:#333;
+    --secondary:rgb(255, 255, 255);
+}
+
+$primary:var(--primary);
+$secondary:var(--secondary);
+
+@mixin Fade($x){
+    transition: $x all ease-in-out
+}
+
+@mixin Flex($direction,$justify,$align,$gapX,$gapY,$wrap){
+    display: flex;
+    flex-direction: $direction;
+    justify-content: $justify;
+    align-items: $align;
+    column-gap: $gapX;
+    row-gap: $gapY;
+    flex-wrap: $wrap;
+}
+
+@import 'profile','todo','toast','footer','directionRTL';

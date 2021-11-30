@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TODO APP</title>
+
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="./assets/css/style.css">
+
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+
+    <script src="https://www.gstatic.com/firebasejs/9.1.3/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.1.3/firebase-auth-compat.js"></script>
+
+
+    <script src="https://www.gstatic.com/firebasejs/ui/6.0.0/firebase-ui-auth.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/6.0.0/firebase-ui-auth.css" />
+
+
+    <script>
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBLhfv4OK-WSp05H6L0on6saI3DgmOsUa0",
+            authDomain: "todoapp-b181b.firebaseapp.com",
+            projectId: "todoapp-b181b",
+            storageBucket: "todoapp-b181b.appspot.com",
+            messagingSenderId: "176829354468",
+            appId: "1:176829354468:web:3fe2ca1e9a0a70a4f837f1"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+
+        var ui = new firebaseui.auth.AuthUI(firebase.auth());
+
+        var uiConfig = {
+            callbacks: {
+                signInSuccessWithAuthResult: function (authResult, redirectUrl) {
+                    console.log("authResult", authResult);
+                    console.log("authResult", authResult.displayName);
+                    console.log("authResult", authResult.email);
+                    // User successfully signed in.
+                    // Return type determines whether we continue the redirect automatically
+                    // or whether we leave that to developer to handle.
+                    return true;
+                },
+
+                uiShown: function () {
+                    // The widget is rendered.
+                    // Hide the loader.
+                    document.getElementById('loader').style.display = 'none';
+                }
+            },
+            // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
+            signInFlow: 'popup',
+            signInSuccessUrl: 'index.html',
+            signInOptions: [
+                // Leave the lines as is for the providers you want to offer your users.
+                // firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+                firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+                // firebase.auth.TwitterAuthProvider.PROVIDER_ID,
+                // firebase.auth.GithubAuthProvider.PROVIDER_ID,
+                firebase.auth.EmailAuthProvider.PROVIDER_ID,
+                firebase.auth.PhoneAuthProvider.PROVIDER_ID
+            ],
+            // Terms of service url.
+            tosUrl: '<your-tos-url>',
+            // Privacy policy url.
+            privacyPolicyUrl: '<your-privacy-policy-url>'
+        };
+        // The start method will wait until the DOM is loaded.
+        ui.start('#firebaseui-auth-container', uiConfig);
+
+
+
+        // function authStateListener() {
+        //     firebase.auth().onAuthStateChanged((user) => {
+        //         if (user) {
+        //             var uid = user.uid;
+        //             console.log("user...", user);
+        //         } else {
+        //             console.log("user not fount...");
+        //         }
+        //     });
+        // }
+
+    </script>
+
+</head>
+
+<body>
+    <!-- <header>
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <nav class="navbar navbar-light">
+                        <div class="container-fluid">
+                            <a class="navbar-brand" href="index.html">TodoApp</a>
+                            <a class="navbar-toggler d-none" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                                <i class="fa fa-bars"></i>
+                            </a>
+                            <div class="justify-content-end" id="navbarNav">
+                                <ul class="navbar-nav d-flex">
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-bs-toggle="modal" data-bs-target="#loginUser">LogIn</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+    </header> -->
+    <aside>
+        <section class="profile">
+            <div class="container-fluid">
+                <div class="site_logo">
+                    <a href="index.html">TodoApp</a>
+                </div>
+                <div class="user">
+                    <div class="avatar">
+                        <img src="./assets/img/user.png" alt="" class="avatar_img img-fluid">
+                        <div class="set_img">
+                            <label for="image">
+                                <input type="file" name="image" id="image" class="d-none" />
+                                <i class="fa fa-camera" for="#pick-img"></i>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="info">
+                        <p class="email">welcome@gmail.com</p>
+                    </div>
+                </div>
+            </div>
+            <ul class="navigation_list">
+                <li class="navigation_item">
+                    <div id="google_translate_element"></div>
+                </li>
+                <li class="navigation_item">
+                    <a class="nav_link" data-bs-toggle="modal" data-bs-target="#loginUser">LogIn</a>
+                </li>
+            </ul>
+            <script type="text/javascript">
+                function googleTranslateElementInit() {
+                    new google.translate.TranslateElement({ pageLanguage: 'en', includedLanguages: "hi,en,ar,fr,ja,ur" }, 'google_translate_element');
+                }
+            </script>
+            <label class="toggle_theme" for="dark_theme">
+                dark Mode
+                <input type="checkbox" id="dark_theme" class="d-none">
+            </label>
+        </section>
+        <div class="slide_icon">
+            <i class="fa fa-chevron-right"></i>
+        </div>
+    </aside>
+
+    <main>
+
+        <section class="todo_app">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <h2 class="sec_hd">My Todo</h2>
+                        <div class="add_todo">
+                            <div class="txt_field">
+                                <input type="text" name="todo" id="text_input" placeholder="Type Todo">
+                            </div>
+                            <div class="btn_wrapper">
+                                <a class="add_btn my_btn">Add</a>
+                                <a class="dell_all_btn my_btn">Delete All</a>
+                            </div>
+                        </div>
+                        <div class="todo_list">
+                            <ul class="todo_ul">
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div class="mytoasts">
+        <div class="value_toast">
+            <p>
+                Todo Added Successfuly
+            </p>
+        </div>
+        <div class="type_toast">
+            <p>
+                Type your Todo
+            </p>
+        </div>
+        <div class="edit_toast">
+            <p>
+                Todo Edited Successfuly
+            </p>
+        </div>
+        <div class="del_toast">
+            <p>
+                Todo Deleted Successfuly
+            </p>
+        </div>
+        <div class="clear_toast">
+            <p>
+                All Todo's Deleted Successfuly
+            </p>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <p class="copyright">
+                        &copy;Copyright. All right reserved.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal -->
+    <div class="modal fade" id="loginUser" tabindex="-1" aria-labelledby="loginUserLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="loginUserLabel">Welcome to My Awesome App</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="firebaseui-auth-container"></div>
+                    <div id="loader">Loading...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript"
+        src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+    <script type="text/javascript" src="./assets/js/app.js"></script>
+
+    <script>
+        var body_tab = document.querySelector('body');
+        setInterval(() => {
+            const my_html_att = document.querySelector("html").getAttribute('lang');
+            let prev_value = 'en';
+            if (my_html_att != prev_value) {
+                console.log("value", my_html_att);
+                if (my_html_att == "ur" || my_html_att == "hi" || my_html_att == "ar") {
+                    if (!body_tab.classList.contains('direction_rtl')) {
+                        body_tab.classList.add('direction_rtl');
+                    }
+                }
+                else {
+                    if (body_tab.classList.contains('direction_rtl')) {
+                        body_tab.classList.remove('direction_rtl');
+                    }
+                }
+                prev_value = my_html_att;
+            }
+        }, 1500);
+    </script>
+</body>
+
+
+</html>

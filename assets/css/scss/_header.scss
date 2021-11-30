@@ -1,0 +1,40 @@
+header{
+    background-color: $primary;
+    padding: 2em 0;
+    box-shadow: 0 0 10px #333;
+    @include Fade(0.5s);
+    .navbar-brand{
+        color: $secondary!important;
+        border: 0.2rem solid $secondary;
+        border-radius: 0.2rem;
+        padding: 0.5em 1em;
+        text-shadow: 0 0 1rem rgba(#fff, 60%),0 0 1rem rgba(#fff, 60%),0 0 1rem rgba(#fff, 60%);
+        box-shadow: 0 0 1.3rem rgba(#fff, 10%),inset 0 0 1rem rgba(#fff, 10%);
+        position: relative;
+        &::after{
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 1rem;
+            bottom: -2rem;
+            left: 0;
+            background-color: $secondary;
+            transform: perspective(5rem) rotateX(45deg);
+            filter: blur(0.5rem);
+        }
+    }
+    .nav-item{
+        .nav-link{
+            padding: 0.3em 0.8em !important;
+            color: $secondary!important;
+            border: 0.15rem solid $secondary;
+            border-radius: 0.4rem;
+            box-shadow: inset 0 0 10px rgba($secondary, 10%);
+            @include Fade(0.2s);
+            &:hover{
+                color: $primary !important;
+                background-color: $secondary!important;
+            }
+        }
+    }
+}

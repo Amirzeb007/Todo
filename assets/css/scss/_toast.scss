@@ -1,0 +1,43 @@
+.mytoasts{
+    position: fixed;
+    right: 1rem;
+    bottom: 4rem;
+    z-index: 99;
+    @include Flex(column,center,center,unset,1rem,unset);
+    .value_toast{
+        background-color: $primary;
+        text-align: center;
+        padding: 1em 2em;
+        border-radius: 0.2rem;
+        width: 100%;
+        min-width: 20rem;
+        filter: hue-rotate(85deg);
+        display: none;
+        opacity: 0;
+        //not working
+        @include Fade(0.8s);
+        p{
+            color: $secondary;
+        }
+        &.active{       
+            display: block;
+            opacity: 1;
+        }
+    }
+    .edit_toast{
+        filter: hue-rotate(325deg);
+        @extend .value_toast;
+    }
+    .del_toast{
+        filter: hue-rotate(140deg);
+        @extend .value_toast;
+    }
+    .clear_toast{
+        filter: hue-rotate(175deg);
+        @extend .value_toast;
+    }
+    .type_toast{
+        filter: hue-rotate(25deg);
+        @extend .value_toast;
+    }
+}

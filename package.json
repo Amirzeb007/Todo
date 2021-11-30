@@ -1,0 +1,14 @@
+{
+  "name": "p1",
+  "version": "1.0.0",
+  "description": "Project to test my skills in scss,typescript,firebase",
+  "main": "index.js",
+  "scripts": {
+    "start": "tsc ./assets/js/app.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Amir_Zeb",
+  "license": "ISC",
+  "dependencies": {
+  }
+}

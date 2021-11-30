@@ -1,0 +1,14 @@
+footer{
+    background-color: $primary;
+    margin-top: 1em;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    @include Fade(0.5s);
+    .copyright{
+        padding: 1em;
+        color: $secondary;
+        font-size: 1rem;
+        text-align: end;
+    }
+}
